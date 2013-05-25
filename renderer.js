@@ -142,9 +142,9 @@ GLRenderer.prototype.render = function(scene, cam)
 	mat4.identity(mvm);
 	
 	var  model, inst;
-	for(i in scene.models)
+	for(i in scene.loader.models)
 	{
-		model = scene.models[i];
+		model = scene.loader.models[i];
 		if(model.instances.length>0)
 		{
 			var renderVerts = model.indCount;

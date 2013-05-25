@@ -28,12 +28,12 @@
 			{
 				border-style: dashed;
 				border-width: 1px;
-				//cursor: none;
 			}
 		</style>
 		<script src="modeldata.js"></script>
 		<script src="glMatrix-0.9.5.min.js"></script>
 		<script src="math.js"></script>
+		<script src="loader.js"></script>
 		<script src="input.js"></script>
 		<script src="shaders.js"></script>
 		<script src="camera.js"></script>
@@ -50,6 +50,8 @@
 		<div id="contentColumn">
 			<p>Pete's Game!</p>
 			<div id="canvasSpace" style="height:500px;">
+			    <div id="debug">Debug Info:<span id="debug_text"></span>
+			    </div>
 			</div>
 		</div>
 		<script type='text/javascript'>

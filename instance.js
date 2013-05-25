@@ -17,3 +17,4 @@ Instance.prototype.getPos = function(pos)
 	pos[1] = this.tm[13];
 	pos[2] = this.tm[14];
 }
+

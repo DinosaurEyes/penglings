@@ -1,4 +1,5 @@
 var gGame = null;
+var gDebugText = "";
 
 function initGame(container)
 {

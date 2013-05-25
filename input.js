@@ -40,9 +40,6 @@ Keyboard.prototype.clearAll = function()
 
 
 
-
-
-
 getMouseX = function(canvas, e)
 {
 	if (e.pageX)

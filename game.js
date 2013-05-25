@@ -1,3 +1,6 @@
+var MOVE_SPEED = 0.8,
+    ROT_SPEED = 0.02;
+
 function Game(container)
 {
 	this.rdr = new GLRenderer;
@@ -5,9 +8,15 @@ function Game(container)
 	{
 		return;
 	}
+	
+    // Fix up prefixing
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    this.audio = new AudioContext();
+    
+    this.loader = new Loader(this.rdr.gl, this.audio);
 
 	// Create the Scene.
-	this.scene = new Scene(this.rdr.gl);
+	this.scene = new Scene(this.loader);
 
 	// Create the Camera.
 	this.cam = new Camera();
@@ -19,11 +28,16 @@ function Game(container)
 	this.mouse = { x: 0, y: 0, over: true, down: false };
 	this.keyb = new Keyboard;
 	
+	// Load Data
 	for(i in gModelData)
 	{
-		this.scene.addModel(new Model(gModelData[i], this.rdr.gl));
+		this.loader.loadModel(new Model(gModelData[i], this.rdr.gl));
 	}
 	
+	this.loader.loadSound("Pengling", "https://dl.dropboxusercontent.com/u/57833864/Pengling.wav");
+	
+	
+	// Prep Scene.
 	for(var i=0; i<1300; i++)
 	{
 		this.scene.addInstance(new Penguin());
@@ -61,26 +75,47 @@ Game.prototype.update = function()
 	this.scene.update();
 	
 	// Input.
-	var moveSpeed = 0.5;
-	var moveDir = vec3.create();
-	if(this.keyb.key[KEYMAP.up] || this.keyb.key[KEYMAP.w])
+	var moveDir = vec3.create(),
+	    deltaYaw = 0,
+	    deltaPitch = 0;
+	if(this.keyb.key[KEYMAP.w])
 	{
-		moveDir[2] += moveSpeed;
+		moveDir[2] -= MOVE_SPEED;
 	}
-	if(this.keyb.key[KEYMAP.down] || this.keyb.key[KEYMAP.s])
+	if(this.keyb.key[KEYMAP.s])
 	{
-		moveDir[2] -= moveSpeed;
+		moveDir[2] += MOVE_SPEED;
 	}
-	if(this.keyb.key[KEYMAP.left] || this.keyb.key[KEYMAP.a])
+
+	if(this.keyb.key[KEYMAP.up])
 	{
-		moveDir[0] += moveSpeed;
+	    deltaPitch -= ROT_SPEED;
 	}
-	if(this.keyb.key[KEYMAP.right] || this.keyb.key[KEYMAP.d])
+	if(this.keyb.key[KEYMAP.down])
 	{
-		moveDir[0] -= moveSpeed;
+	    deltaPitch += ROT_SPEED;
+	}
+
+	if(this.keyb.key[KEYMAP.a])
+	{
+		moveDir[0] -= MOVE_SPEED;
+	}
+	if(this.keyb.key[KEYMAP.d])
+	{
+		moveDir[0] += MOVE_SPEED;
+	}
+	
+	if(this.keyb.key[KEYMAP.left])
+	{
+	    deltaYaw += ROT_SPEED;
+	}
+	if(this.keyb.key[KEYMAP.right])
+	{
+	    deltaYaw -= ROT_SPEED;
 	}
 	
 	this.cam.move(moveDir);
+	this.cam.rotate(deltaYaw, deltaPitch);
 };
 
 
