@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Pete's Game </title>
+		<style>
+			body
+			{
+				background-color: #fff;
+				margin: 0px;
+				text-align: -webkit-center;
+				font-family: Calibri;
+			}
+
+			#contentColumn
+			{
+				height: 100%;
+				width: 80%;
+				overflow: hidden;
+				padding-left: 8px;
+				padding-right: 8px;
+				display: inline-block;
+				border-width: 0px 2px;
+				border-style: solid;
+				border-color: #ddd;
+			}
+			
+			#canvas
+			{
+				border-style: dashed;
+				border-width: 1px;
+				//cursor: none;
+			}
+		</style>
+		<script src="modeldata.js"></script>
+		<script src="glMatrix-0.9.5.min.js"></script>
+		<script src="math.js"></script>
+		<script src="input.js"></script>
+		<script src="shaders.js"></script>
+		<script src="camera.js"></script>
+		<script src="model.js"></script>
+		<script src="instance.js"></script>
+		<script src="scene.js"></script>
+		<script src="renderer.js"></script>
+		<script src="penguin.js"></script>
+		<script src="game.js"></script>
+		<script src="main.js"></script>
+	</head>
+	
+	<body>
+		<div id="contentColumn">
+			<p>Pete's Game!</p>
+			<div id="canvasSpace" style="height:500px;">
+			</div>
+		</div>
+		<script type='text/javascript'>
+			var container = document.getElementById("canvasSpace");
+			initGame(container);
+		</script>
+	</body>
+</html>
